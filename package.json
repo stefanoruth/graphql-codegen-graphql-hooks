@@ -1,0 +1,44 @@
+{
+    "name": "graphql-codegen-graphql-hooks",
+    "version": "0.1.0",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "repository": "https://github.com/stefanoruth/graphql-codegen-graphql-hooks.git",
+    "author": "Stefano Ruth <stefano6262@gmail.com>",
+    "license": "MIT",
+    "private": false,
+    "scripts": {
+        "clean": "rm -rf dist/",
+        "build": "tsc"
+    },
+    "peerDependencies": {
+        "graphql": "^15.0.0"
+    },
+    "dependencies": {
+        "@graphql-codegen/plugin-helpers": "^1.18.7",
+        "@graphql-codegen/visitor-plugin-common": "^1.21.0"
+    },
+    "devDependencies": {
+        "graphql": "^15.5.0",
+        "prettier": "^2.3.0",
+        "typescript": "^4.3.2"
+    },
+    "prettier": {
+        "semi": false,
+        "useTabs": false,
+        "tabWidth": 4,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "proseWrap": "always",
+        "jsxBracketSameLine": true,
+        "bracketSpacing": true,
+        "arrowParens": "avoid",
+        "printWidth": 120
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "dist"
+    ]
+}
