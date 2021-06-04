@@ -1,5 +1,5 @@
 {
-    "name": "graphql-codegen-graphql-hooks",
+    "name": "@stefanoruth/graphql-codegen-graphql-hooks",
     "version": "0.1.0",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
