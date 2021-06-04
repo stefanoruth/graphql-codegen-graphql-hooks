@@ -2,9 +2,8 @@
 
 ![npm](https://img.shields.io/npm/v/@stefanoruth/graphql-codegen-graphql-hooks)
 
-- [GraphQL Code Generator](https://www.graphql-code-generator.com/)
-- [GraphQL Hooks](https://github.com/nearform/graphql-hooks)
-
+-   [GraphQL Code Generator](https://www.graphql-code-generator.com/)
+-   [GraphQL Hooks](https://github.com/nearform/graphql-hooks)
 
 ## Install
 
