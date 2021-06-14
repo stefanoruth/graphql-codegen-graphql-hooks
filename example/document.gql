@@ -1,0 +1,12 @@
+query Auth {
+    auth {
+        id
+        email
+    }
+}
+
+mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+        id
+    }
+}

@@ -9,7 +9,8 @@
     "private": false,
     "scripts": {
         "clean": "rm -rf dist/",
-        "build": "tsc"
+        "build": "tsc",
+        "example": "cd example && yarn codegen"
     },
     "peerDependencies": {
         "graphql": "^15.0.0"

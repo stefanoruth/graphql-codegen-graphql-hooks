@@ -32,7 +32,9 @@ export class GraphQLHooksVisitor extends ClientSideBaseVisitor<
     }
 
     getImports() {
-        return [`import { useQuery, useMutation, UseClientRequestOptions, UseQueryOptions } from 'graphql-hooks';`]
+        return [
+            `import { useQuery, useMutation, useManualQuery, UseClientRequestOptions, UseQueryOptions } from 'graphql-hooks';`,
+        ]
     }
 
     protected buildOperation(
@@ -44,7 +46,10 @@ export class GraphQLHooksVisitor extends ClientSideBaseVisitor<
         hasRequiredVariables: boolean
     ) {
         if (operationType === 'Query') {
-            return `export const use${operationResultType} = (variables?: UseQueryOptions<${operationVariablesTypes}>) => useQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, variables)`
+            return [
+                `export const use${operationResultType} = (variables?: UseQueryOptions<${operationVariablesTypes}>) => useQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, variables)`,
+                `export const useManual${operationResultType} = (variables?: UseClientRequestOptions<${operationVariablesTypes}>) => useManualQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, variables)`,
+            ].join('\n')
         } else if (operationType === 'Mutation') {
             return `export const use${operationResultType} = (variables?: UseClientRequestOptions<${operationVariablesTypes}>) => useMutation<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, variables)`
         }

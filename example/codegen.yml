@@ -1,0 +1,11 @@
+overwrite: true
+schema: './schema.gql'
+documents: './document.gql'
+generates:
+    output.ts:
+        config:
+            skipTypename: true
+        plugins:
+            - 'typescript'
+            - 'typescript-operations'
+            - '../dist/'
