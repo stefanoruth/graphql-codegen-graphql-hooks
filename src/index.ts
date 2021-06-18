@@ -25,6 +25,6 @@ export const plugin: PluginFunction = (schema, documents, config) => {
 
     return {
         prepend: [...visitor.getImports()],
-        content: [...visitorResult.definitions].join('\n'),
+        content: [visitor.fragments, ...visitorResult.definitions.filter((t: any) => typeof t === 'string')].join('\n'),
     }
 }

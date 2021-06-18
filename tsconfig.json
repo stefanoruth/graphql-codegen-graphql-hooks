@@ -6,6 +6,7 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "moduleResolution": "node",
+        "noImplicitOverride": true,
         "forceConsistentCasingInFileNames": true,
         "outDir": "dist"
     },

@@ -1,12 +1,16 @@
+fragment MyUser on User {
+    id
+    email
+}
+
 query Auth {
     auth {
-        id
-        email
+        ...MyUser
     }
 }
 
 mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-        id
+        ...MyUser
     }
 }

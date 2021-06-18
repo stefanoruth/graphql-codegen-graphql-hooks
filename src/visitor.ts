@@ -22,22 +22,22 @@ export class GraphQLHooksVisitor extends ClientSideBaseVisitor<
         super(
             schema,
             fragments,
+            rawConfig,
             {
-                ...rawConfig,
                 documentMode: DocumentMode.string,
+                ...additionalConfig,
             },
-            additionalConfig,
             documents
         )
     }
 
-    getImports() {
+    override getImports() {
         return [
             `import { useQuery, useMutation, useManualQuery, UseClientRequestOptions, UseQueryOptions } from 'graphql-hooks';`,
         ]
     }
 
-    protected buildOperation(
+    protected override buildOperation(
         node: OperationDefinitionNode,
         documentVariableName: string,
         operationType: string,
