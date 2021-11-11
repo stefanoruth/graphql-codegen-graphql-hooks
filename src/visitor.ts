@@ -47,11 +47,11 @@ export class GraphQLHooksVisitor extends ClientSideBaseVisitor<
     ) {
         if (operationType === 'Query') {
             return [
-                `export const use${operationResultType} = (variables?: UseQueryOptions<${operationVariablesTypes}>) => useQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, variables)`,
-                `export const useManual${operationResultType} = (variables?: UseClientRequestOptions<${operationVariablesTypes}>) => useManualQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, variables)`,
+                `export const use${operationResultType} = (options?: UseQueryOptions<${operationResultType}, ${operationVariablesTypes}>) => useQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, options)`,
+                `export const useManual${operationResultType} = (options?: UseClientRequestOptions<${operationResultType}, ${operationVariablesTypes}>) => useManualQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, options)`,
             ].join('\n')
         } else if (operationType === 'Mutation') {
-            return `export const use${operationResultType} = (variables?: UseClientRequestOptions<${operationVariablesTypes}>) => useMutation<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, variables)`
+            return `export const use${operationResultType} = (options?: UseClientRequestOptions<${operationResultType}, ${operationVariablesTypes}>) => useMutation<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, options)`
         }
 
         return ''

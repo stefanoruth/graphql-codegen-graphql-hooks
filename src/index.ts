@@ -1,5 +1,5 @@
 import { LoadedFragment } from '@graphql-codegen/visitor-plugin-common'
-import { PluginFunction, Types } from '@graphql-codegen/plugin-helpers'
+import { PluginFunction, oldVisit } from '@graphql-codegen/plugin-helpers'
 import { visit, concatAST, Kind, FragmentDefinitionNode, DocumentNode } from 'graphql'
 import { GraphQLHooksVisitor } from './visitor'
 
@@ -21,7 +21,7 @@ export const plugin: PluginFunction = (schema, documents, config) => {
     ]
 
     const visitor = new GraphQLHooksVisitor(schema, allFragments, config, {}, documents)
-    const visitorResult = visit(allAst, { leave: visitor })
+    const visitorResult = oldVisit(allAst, { leave: visitor })
 
     return {
         prepend: [...visitor.getImports()],
