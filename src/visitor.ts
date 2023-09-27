@@ -7,6 +7,7 @@ import {
     LoadedFragment,
 } from '@graphql-codegen/visitor-plugin-common'
 import { GraphQLSchema, OperationDefinitionNode } from 'graphql'
+import gqlmin from 'gqlmin'
 
 export class GraphQLHooksVisitor extends ClientSideBaseVisitor<
     RawClientSideBasePluginConfig,
@@ -24,7 +25,8 @@ export class GraphQLHooksVisitor extends ClientSideBaseVisitor<
             fragments,
             rawConfig,
             {
-                documentMode: DocumentMode.string,
+                //Dont include it in the output
+                documentMode: DocumentMode.external,
                 ...additionalConfig,
             },
             documents
@@ -45,13 +47,24 @@ export class GraphQLHooksVisitor extends ClientSideBaseVisitor<
         operationVariablesTypes: string,
         hasRequiredVariables: boolean
     ) {
+        const documentName = `${documentVariableName}Raw`
+
+        if (!node.loc) {
+            throw new Error('Location missing?')
+        }
+
+        const rawQuery = gqlmin(node.loc.source.body.substring(node.loc.start, node.loc.end))
         if (operationType === 'Query') {
             return [
-                `export const use${operationResultType} = (options?: UseQueryOptions<${operationResultType}, ${operationVariablesTypes}>) => useQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, options)`,
-                `export const useManual${operationResultType} = (options?: UseClientRequestOptions<${operationResultType}, ${operationVariablesTypes}>) => useManualQuery<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, options)`,
+                `const ${documentName} = \`${rawQuery}\`;`,
+                `export const use${operationResultType} = (options?: UseQueryOptions<${operationResultType}, ${operationVariablesTypes}>) => useQuery<${operationResultType}, ${operationVariablesTypes}>(${documentName}, options)`,
+                `export const useManual${operationResultType} = (options?: UseClientRequestOptions<${operationResultType}, ${operationVariablesTypes}>) => useManualQuery<${operationResultType}, ${operationVariablesTypes}>(${documentName}, options)`,
             ].join('\n')
         } else if (operationType === 'Mutation') {
-            return `export const use${operationResultType} = (options?: UseClientRequestOptions<${operationResultType}, ${operationVariablesTypes}>) => useMutation<${operationResultType}, ${operationVariablesTypes}>(${documentVariableName}, options)`
+            return [
+                `const ${documentName} = \`${rawQuery}\`;`,
+                `export const use${operationResultType} = (options?: UseClientRequestOptions<${operationResultType}, ${operationVariablesTypes}>) => useMutation<${operationResultType}, ${operationVariablesTypes}>(${documentName}, options)`,
+            ].join('\n')
         }
 
         return ''
