@@ -17,7 +17,8 @@
     },
     "dependencies": {
         "@graphql-codegen/plugin-helpers": "^2.3.1",
-        "@graphql-codegen/visitor-plugin-common": "^2.5.0"
+        "@graphql-codegen/visitor-plugin-common": "^2.5.0",
+        "gqlmin": "^0.1.1"
     },
     "devDependencies": {
         "graphql": "^16.0.1",
