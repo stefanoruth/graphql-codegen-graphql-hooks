@@ -25,7 +25,7 @@ export class GraphQLHooksVisitor extends ClientSideBaseVisitor<
             fragments,
             rawConfig,
             {
-                //Dont include documents in the output, as we will add them manually instead
+                // Don't include documents in the output, as we will add them manually instead
                 documentMode: DocumentMode.external,
                 ...additionalConfig,
             },
